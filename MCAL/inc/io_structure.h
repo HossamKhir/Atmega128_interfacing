@@ -18,8 +18,21 @@ typedef struct gpio {
 	INT8U DDR;
 	INT8U PORT;
 	}GPIO;
+	
+struct gpiof {
+	INT8U PIN;
+	const INT8U reserved[64];
+	INT8U DDR;
+	INT8U PORT;
+	};
 
 #define GPIOA	((volatile GPIO*)(0x39))
+#define GPIOB	((volatile GPIO*)(0x36))
+#define GPIOC	((volatile GPIO*)(0x33))
+#define GPIOD	((volatile GPIO*)(0x30))
+#define GPIOE	((volatile GPIO*)(0x21))
+#define GPIOF	((volatile struct gpiof*)(0x20))
+#define GPIOG	((volatile GPIO*)(0x63))
 
 
 #endif /* IO_STURCTURE_H */
