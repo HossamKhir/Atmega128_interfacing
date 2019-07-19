@@ -3,25 +3,25 @@ interfacing_app.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         00000142  00000000  00000000  00000054  2**1
+  0 .text         00000118  00000000  00000000  00000054  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .comment      00000030  00000000  00000000  00000196  2**0
+  1 .comment      00000030  00000000  00000000  0000016c  2**0
                   CONTENTS, READONLY
-  2 .debug_aranges 00000020  00000000  00000000  000001c6  2**0
+  2 .debug_aranges 00000020  00000000  00000000  0000019c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  3 .debug_info   000001c8  00000000  00000000  000001e6  2**0
+  3 .debug_info   000001c8  00000000  00000000  000001bc  2**0
                   CONTENTS, READONLY, DEBUGGING
-  4 .debug_abbrev 0000010e  00000000  00000000  000003ae  2**0
+  4 .debug_abbrev 0000010e  00000000  00000000  00000384  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_line   000001cc  00000000  00000000  000004bc  2**0
+  5 .debug_line   000001a7  00000000  00000000  00000492  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_frame  00000024  00000000  00000000  00000688  2**2
+  6 .debug_frame  00000024  00000000  00000000  0000063c  2**2
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_str    000001a4  00000000  00000000  000006ac  2**0
+  7 .debug_str    000001a4  00000000  00000000  00000660  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_loc    000000c9  00000000  00000000  00000850  2**0
+  8 .debug_loc    0000007c  00000000  00000000  00000804  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_ranges 00000010  00000000  00000000  00000919  2**0
+  9 .debug_ranges 00000010  00000000  00000000  00000880  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -106,7 +106,7 @@ Disassembly of section .text:
   94:	de bf       	out	0x3e, r29	; 62
   96:	cd bf       	out	0x3d, r28	; 61
   98:	02 d0       	rcall	.+4      	; 0x9e <main>
-  9a:	51 c0       	rjmp	.+162    	; 0x13e <_exit>
+  9a:	3c c0       	rjmp	.+120    	; 0x114 <_exit>
 
 0000009c <__bad_interrupt>:
   9c:	b1 cf       	rjmp	.-158    	; 0x0 <__vectors>
@@ -135,121 +135,84 @@ int main(void)
 	SET_BYTE(GPIOA->DDR);
   b2:	8f ef       	ldi	r24, 0xFF	; 255
   b4:	8a bb       	out	0x1a, r24	; 26
-	//GPIOA->PORT |= 0xFF;
-	//SET_BYTE(GPIOA->PORT);
 	
 	int index = 0;
+	
+    while(1)
+    {
+		for(index = 0; index <= 7; index++)
   b6:	80 e0       	ldi	r24, 0x00	; 0
   b8:	90 e0       	ldi	r25, 0x00	; 0
-	
-    while(1)
-    {
-        //YOLO:: You Only Live Once
-		SET_BIT(GPIOA->PORT,index);
-  ba:	61 e0       	ldi	r22, 0x01	; 1
-  bc:	70 e0       	ldi	r23, 0x00	; 0
-		SET_BIT(GPIOA->PORT,(7-index));
+  ba:	b0 e0       	ldi	r27, 0x00	; 0
+  bc:	a0 e0       	ldi	r26, 0x00	; 0
+		{
+			(index == 4)? 0:_delay_ms(50);
+			GPIOA->PORT = ((1 << index) | (1 << (7 - index)));
   be:	e7 e0       	ldi	r30, 0x07	; 7
   c0:	f0 e0       	ldi	r31, 0x00	; 0
-		
-		CLR_BIT(GPIOA->PORT,index);
-		CLR_BIT(GPIOA->PORT,(7-index));
-		
-		// Reset condition: index == 8
-		index = (index == 7)? 0 : index + 1;
-  c2:	c0 e0       	ldi	r28, 0x00	; 0
-  c4:	b0 e0       	ldi	r27, 0x00	; 0
-  c6:	02 c0       	rjmp	.+4      	; 0xcc <main+0x2e>
-  c8:	8c 2f       	mov	r24, r28
-  ca:	9b 2f       	mov	r25, r27
-	int index = 0;
+  c2:	21 e0       	ldi	r18, 0x01	; 1
+  c4:	30 e0       	ldi	r19, 0x00	; 0
+  c6:	20 c0       	rjmp	.+64     	; 0x108 <main+0x6a>
 	
     while(1)
     {
-        //YOLO:: You Only Live Once
-		SET_BIT(GPIOA->PORT,index);
-  cc:	2b b3       	in	r18, 0x1b	; 27
-  ce:	ab 01       	movw	r20, r22
-  d0:	08 2e       	mov	r0, r24
-  d2:	02 c0       	rjmp	.+4      	; 0xd8 <main+0x3a>
-  d4:	44 0f       	add	r20, r20
-  d6:	55 1f       	adc	r21, r21
-  d8:	0a 94       	dec	r0
-  da:	e2 f7       	brpl	.-8      	; 0xd4 <main+0x36>
-  dc:	24 2b       	or	r18, r20
-  de:	2b bb       	out	0x1b, r18	; 27
-		SET_BIT(GPIOA->PORT,(7-index));
-  e0:	ab b3       	in	r26, 0x1b	; 27
-  e2:	9f 01       	movw	r18, r30
-  e4:	28 1b       	sub	r18, r24
-  e6:	39 0b       	sbc	r19, r25
-  e8:	8b 01       	movw	r16, r22
-  ea:	02 c0       	rjmp	.+4      	; 0xf0 <main+0x52>
-  ec:	00 0f       	add	r16, r16
-  ee:	11 1f       	adc	r17, r17
-  f0:	2a 95       	dec	r18
-  f2:	e2 f7       	brpl	.-8      	; 0xec <main+0x4e>
-  f4:	98 01       	movw	r18, r16
-  f6:	a0 2b       	or	r26, r16
-  f8:	ab bb       	out	0x1b, r26	; 27
-		
-		(index == 4)? index:_delay_ms(50);
-  fa:	84 30       	cpi	r24, 0x04	; 4
-  fc:	91 05       	cpc	r25, r1
-  fe:	b1 f0       	breq	.+44     	; 0x12c <main+0x8e>
+		for(index = 0; index <= 7; index++)
+		{
+			(index == 4)? 0:_delay_ms(50);
+  c8:	84 30       	cpi	r24, 0x04	; 4
+  ca:	91 05       	cpc	r25, r1
+  cc:	49 f0       	breq	.+18     	; 0xe0 <main+0x42>
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
- 100:	1f e7       	ldi	r17, 0x7F	; 127
- 102:	a8 e3       	ldi	r26, 0x38	; 56
- 104:	d1 e0       	ldi	r29, 0x01	; 1
- 106:	11 50       	subi	r17, 0x01	; 1
- 108:	a0 40       	sbci	r26, 0x00	; 0
- 10a:	d0 40       	sbci	r29, 0x00	; 0
- 10c:	e1 f7       	brne	.-8      	; 0x106 <main+0x68>
- 10e:	00 c0       	rjmp	.+0      	; 0x110 <main+0x72>
- 110:	00 00       	nop
-		
-		CLR_BIT(GPIOA->PORT,index);
- 112:	3b b3       	in	r19, 0x1b	; 27
- 114:	40 95       	com	r20
- 116:	43 23       	and	r20, r19
- 118:	4b bb       	out	0x1b, r20	; 27
-		CLR_BIT(GPIOA->PORT,(7-index));
- 11a:	3b b3       	in	r19, 0x1b	; 27
- 11c:	20 95       	com	r18
- 11e:	23 23       	and	r18, r19
- 120:	2b bb       	out	0x1b, r18	; 27
-		
-		// Reset condition: index == 8
-		index = (index == 7)? 0 : index + 1;
- 122:	87 30       	cpi	r24, 0x07	; 7
- 124:	91 05       	cpc	r25, r1
- 126:	81 f2       	breq	.-96     	; 0xc8 <main+0x2a>
- 128:	01 96       	adiw	r24, 0x01	; 1
- 12a:	d0 cf       	rjmp	.-96     	; 0xcc <main+0x2e>
-		SET_BIT(GPIOA->PORT,index);
-		SET_BIT(GPIOA->PORT,(7-index));
-		
-		(index == 4)? index:_delay_ms(50);
-		
-		CLR_BIT(GPIOA->PORT,index);
- 12c:	3b b3       	in	r19, 0x1b	; 27
- 12e:	40 95       	com	r20
- 130:	43 23       	and	r20, r19
- 132:	4b bb       	out	0x1b, r20	; 27
-		CLR_BIT(GPIOA->PORT,(7-index));
- 134:	3b b3       	in	r19, 0x1b	; 27
- 136:	20 95       	com	r18
- 138:	23 23       	and	r18, r19
- 13a:	2b bb       	out	0x1b, r18	; 27
- 13c:	f5 cf       	rjmp	.-22     	; 0x128 <main+0x8a>
+  ce:	4f e7       	ldi	r20, 0x7F	; 127
+  d0:	58 e3       	ldi	r21, 0x38	; 56
+  d2:	61 e0       	ldi	r22, 0x01	; 1
+  d4:	41 50       	subi	r20, 0x01	; 1
+  d6:	50 40       	sbci	r21, 0x00	; 0
+  d8:	60 40       	sbci	r22, 0x00	; 0
+  da:	e1 f7       	brne	.-8      	; 0xd4 <main+0x36>
+  dc:	00 c0       	rjmp	.+0      	; 0xde <main+0x40>
+  de:	00 00       	nop
+			GPIOA->PORT = ((1 << index) | (1 << (7 - index)));
+  e0:	bf 01       	movw	r22, r30
+  e2:	68 1b       	sub	r22, r24
+  e4:	79 0b       	sbc	r23, r25
+  e6:	a9 01       	movw	r20, r18
+  e8:	02 c0       	rjmp	.+4      	; 0xee <main+0x50>
+  ea:	44 0f       	add	r20, r20
+  ec:	55 1f       	adc	r21, r21
+  ee:	6a 95       	dec	r22
+  f0:	e2 f7       	brpl	.-8      	; 0xea <main+0x4c>
+  f2:	ba 01       	movw	r22, r20
+  f4:	a9 01       	movw	r20, r18
+  f6:	08 2e       	mov	r0, r24
+  f8:	02 c0       	rjmp	.+4      	; 0xfe <main+0x60>
+  fa:	44 0f       	add	r20, r20
+  fc:	55 1f       	adc	r21, r21
+  fe:	0a 94       	dec	r0
+ 100:	e2 f7       	brpl	.-8      	; 0xfa <main+0x5c>
+ 102:	46 2b       	or	r20, r22
+ 104:	4b bb       	out	0x1b, r20	; 27
+	
+	int index = 0;
+	
+    while(1)
+    {
+		for(index = 0; index <= 7; index++)
+ 106:	01 96       	adiw	r24, 0x01	; 1
+ 108:	88 30       	cpi	r24, 0x08	; 8
+ 10a:	91 05       	cpc	r25, r1
+ 10c:	ec f2       	brlt	.-70     	; 0xc8 <main+0x2a>
+ 10e:	8b 2f       	mov	r24, r27
+ 110:	9a 2f       	mov	r25, r26
+ 112:	dd cf       	rjmp	.-70     	; 0xce <main+0x30>
 
-0000013e <_exit>:
- 13e:	f8 94       	cli
+00000114 <_exit>:
+ 114:	f8 94       	cli
 
-00000140 <__stop_program>:
- 140:	ff cf       	rjmp	.-2      	; 0x140 <__stop_program>
+00000116 <__stop_program>:
+ 116:	ff cf       	rjmp	.-2      	; 0x116 <__stop_program>

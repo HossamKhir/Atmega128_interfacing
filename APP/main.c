@@ -27,7 +27,14 @@ int main(void)
 	
     while(1)
     {
+		for(index = 0; index <= 7; index++)
+		{
+			(index == 4)? 0:_delay_ms(50);
+			GPIOA->PORT = ((1 << index) | (1 << (7 - index)));
+		}
+		
         //YOLO:: You Only Live Once
+		/*
 		SET_BIT(GPIOA->PORT,index);
 		SET_BIT(GPIOA->PORT,(7-index));
 		
@@ -38,5 +45,6 @@ int main(void)
 		
 		// Reset condition: index == 8
 		index = (index == 7)? 0 : index + 1;
+		*/
     }
 }
