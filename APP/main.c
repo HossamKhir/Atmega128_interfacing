@@ -7,8 +7,8 @@
 
 #define F_CPU	8000000UL
 #include "util/delay.h"
-#include "io_structure.h"
-#include "bit_handle.h"
+#include "../MCAL/inc/io_structure.h"
+#include "../Utility/bit_handle.h"
 
 int main(void)
 {

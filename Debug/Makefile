@@ -2,135 +2,90 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
-SHELL := cmd.exe
+-include ../makefile.init
+
 RM := rm -rf
 
-USER_OBJS :=
-
-LIBS := 
-PROJ := 
-
-O_SRCS := 
-C_SRCS := 
-S_SRCS := 
-S_UPPER_SRCS := 
-OBJ_SRCS := 
-ASM_SRCS := 
-PREPROCESSING_SRCS := 
-OBJS := 
-OBJS_AS_ARGS := 
-C_DEPS := 
-C_DEPS_AS_ARGS := 
-EXECUTABLES := 
-OUTPUT_FILE_PATH :=
-OUTPUT_FILE_PATH_AS_ARGS :=
-AVR_APP_PATH :=$$$AVR_APP_PATH$$$
-QUOTE := "
-ADDITIONAL_DEPENDENCIES:=
-OUTPUT_FILE_DEP:=
-LIB_DEP:=
-LINKER_SCRIPT_DEP:=
-
-# Every subdirectory with source files must be described here
-SUBDIRS :=  \
-../APP \
-../MCAL \
-../HAL \
-../MCAL/inc \
-../MCAL/src \
-../Service \
-../Utility
-
-
-# Add inputs and outputs from these tool invocations to the build variables 
-C_SRCS +=  \
-../APP/main.c
-
-
-PREPROCESSING_SRCS += 
-
-
-ASM_SRCS += 
-
-
-OBJS +=  \
-APP/main.o
-
-OBJS_AS_ARGS +=  \
-APP/main.o
-
-C_DEPS +=  \
-APP/main.d
-
-C_DEPS_AS_ARGS +=  \
-APP/main.d
-
-OUTPUT_FILE_PATH +=interfacing_app.elf
-
-OUTPUT_FILE_PATH_AS_ARGS +=interfacing_app.elf
-
-ADDITIONAL_DEPENDENCIES:=
-
-OUTPUT_FILE_DEP:= ./makedep.mk
-
-LIB_DEP+= 
-
-LINKER_SCRIPT_DEP+= 
-
-
-# AVR32/GNU C Compiler
-
-
-
-APP/%.o: ../APP/%.c
-	@echo Building file: $<
-	@echo Invoking: AVR/GNU C Compiler : 4.8.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1061\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"../MCAL/inc" -I"../Utility"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -mrelax -g2 -Wall -mmcu=atmega128 -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
-	@echo Finished building: $<
-	
-
-
-
-# AVR32/GNU Preprocessing Assembler
-
-
-
-# AVR32/GNU Assembler
-
-
-
+# All of the sources participating in the build are defined here
+-include sources.mk
+-include MCAL/src/subdir.mk
+-include APP/subdir.mk
+-include subdir.mk
+-include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
+ifneq ($(strip $(ASM_DEPS)),)
+-include $(ASM_DEPS)
+endif
+ifneq ($(strip $(S_DEPS)),)
+-include $(S_DEPS)
+endif
+ifneq ($(strip $(S_UPPER_DEPS)),)
+-include $(S_UPPER_DEPS)
+endif
 ifneq ($(strip $(C_DEPS)),)
 -include $(C_DEPS)
 endif
 endif
 
+-include ../makefile.defs
+
 # Add inputs and outputs from these tool invocations to the build variables 
+LSS += \
+interfacing_atmega128.lss \
+
+FLASH_IMAGE += \
+interfacing_atmega128.hex \
+
+SIZEDUMMY += \
+sizedummy \
+
+AVRDUDEDUMMY += \
+avrdudedummy \
+
 
 # All Target
-all: $(OUTPUT_FILE_PATH) $(ADDITIONAL_DEPENDENCIES)
+all: interfacing_atmega128.elf secondary-outputs
 
-$(OUTPUT_FILE_PATH): $(OBJS) $(USER_OBJS) $(OUTPUT_FILE_DEP) $(LIB_DEP) $(LINKER_SCRIPT_DEP)
-	@echo Building target: $@
-	@echo Invoking: AVR/GNU Linker : 4.8.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1061\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE) -o$(OUTPUT_FILE_PATH_AS_ARGS) $(OBJS_AS_ARGS) $(USER_OBJS) $(LIBS) -Wl,-Map="interfacing_app.map" -Wl,--start-group -Wl,-lm  -Wl,--end-group -Wl,--gc-sections -mrelax -mmcu=atmega128  
-	@echo Finished building target: $@
-	"C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1061\avr8-gnu-toolchain\bin\avr-objcopy.exe" -O ihex -R .eeprom -R .fuse -R .lock -R .signature -R .user_signatures  "interfacing_app.elf" "interfacing_app.hex"
-	"C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1061\avr8-gnu-toolchain\bin\avr-objcopy.exe" -j .eeprom  --set-section-flags=.eeprom=alloc,load --change-section-lma .eeprom=0  --no-change-warnings -O ihex "interfacing_app.elf" "interfacing_app.eep" || exit 0
-	"C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1061\avr8-gnu-toolchain\bin\avr-objdump.exe" -h -S "interfacing_app.elf" > "interfacing_app.lss"
-	"C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1061\avr8-gnu-toolchain\bin\avr-objcopy.exe" -O srec -R .eeprom -R .fuse -R .lock -R .signature -R .user_signatures "interfacing_app.elf" "interfacing_app.srec"
-	"C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1061\avr8-gnu-toolchain\bin\avr-size.exe" "interfacing_app.elf"
-	
-	
+# Tool invocations
+interfacing_atmega128.elf: $(OBJS) $(USER_OBJS)
+	@echo 'Building target: $@'
+	@echo 'Invoking: AVR C Linker'
+	avr-gcc -Wl,-Map,interfacing_atmega128.map -mmcu=atmega128 -o "interfacing_atmega128.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	@echo 'Finished building target: $@'
+	@echo ' '
 
+interfacing_atmega128.lss: interfacing_atmega128.elf
+	@echo 'Invoking: AVR Create Extended Listing'
+	-avr-objdump -h -S interfacing_atmega128.elf  >"interfacing_atmega128.lss"
+	@echo 'Finished building: $@'
+	@echo ' '
 
+interfacing_atmega128.hex: interfacing_atmega128.elf
+	@echo 'Create Flash image (ihex format)'
+	-avr-objcopy -R .eeprom -R .fuse -R .lock -R .signature -O ihex interfacing_atmega128.elf  "interfacing_atmega128.hex"
+	@echo 'Finished building: $@'
+	@echo ' '
 
+sizedummy: interfacing_atmega128.elf
+	@echo 'Invoking: Print Size'
+	-avr-size --format=avr --mcu=atmega128 interfacing_atmega128.elf
+	@echo 'Finished building: $@'
+	@echo ' '
 
+avrdudedummy: interfacing_atmega128.elf
+	@echo 'Invoking: AVRDude'
+	C:\WinAVR-20100110\bin\avrdude -pm128 -Uflash:w:interfacing_atmega128.hex:a
+	@echo 'Finished building: $@'
+	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(OBJS_AS_ARGS) $(EXECUTABLES)  
-	-$(RM) $(C_DEPS_AS_ARGS)   
-	rm -rf "interfacing_app.elf" "interfacing_app.a" "interfacing_app.hex" "interfacing_app.lss" "interfacing_app.eep" "interfacing_app.map" "interfacing_app.srec" "interfacing_app.usersignatures"
-	
+	-$(RM) $(FLASH_IMAGE)$(ELFS)$(OBJS)$(ASM_DEPS)$(AVRDUDEDUMMY)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS)$(LSS)$(C_DEPS) interfacing_atmega128.elf
+	-@echo ' '
+
+secondary-outputs: $(LSS) $(FLASH_IMAGE) $(SIZEDUMMY) $(AVRDUDEDUMMY)
+
+.PHONY: all clean dependents
+
+-include ../makefile.targets
