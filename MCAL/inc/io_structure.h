@@ -10,7 +10,7 @@
 #define IO_STURCTURE_H
 
 #include "avr/io.h"
-#include "data_types.h"
+#include "../../Utility/data_types.h"
 
 
 typedef struct gpio {

@@ -75,7 +75,7 @@ sizedummy: interfacing_atmega128.elf
 
 avrdudedummy: interfacing_atmega128.elf
 	@echo 'Invoking: AVRDude'
-	C:\WinAVR-20100110\bin\avrdude -pm128 -Uflash:w:interfacing_atmega128.hex:a
+	/usr/bin/avrdude -pm128 -carduino -Uflash:w:interfacing_atmega128.hex:a
 	@echo 'Finished building: $@'
 	@echo ' '
 
