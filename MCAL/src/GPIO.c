@@ -8,7 +8,7 @@
 #include "../inc/GPIO.h"
 
 // PORT
-void GPIO_write_pin(void* reg, pin P, pin_value PIN_VAL)
+void GPIO_write_pin(volatile void* reg, pin P, pin_value PIN_VAL)
 {
 	if(GPIOF == (struct gpiof*)reg)
 	{
@@ -40,7 +40,7 @@ void GPIO_write_pin(void* reg, pin P, pin_value PIN_VAL)
 }
 
 // DDR
-void GPIO_set_pin_direction(void* reg, pin P, pin_direction PIN_DIR)
+void GPIO_set_pin_direction(volatile void* reg, pin P, pin_direction PIN_DIR)
 {
 	if(GPIOF == (struct gpiof*)reg)
 	{
@@ -70,7 +70,7 @@ void GPIO_set_pin_direction(void* reg, pin P, pin_direction PIN_DIR)
 }
 
 // PORT
-void GPIO_enable_pullup(void* reg, pin P)
+void GPIO_enable_pullup(volatile void* reg, pin P)
 {
 	if(GPIOF == (struct gpiof*)reg)
 	{
@@ -84,7 +84,7 @@ void GPIO_enable_pullup(void* reg, pin P)
 }
 
 // PIN
-INT8U GPIO_read_pin(void* reg, pin P)
+INT8U GPIO_read_pin(volatile void* reg, pin P)
 {
 	if(GPIOF == (struct gpiof*)reg)
 	{
@@ -98,7 +98,7 @@ INT8U GPIO_read_pin(void* reg, pin P)
 }
 
 // PORT
-void GPIO_toggle_pin(void* reg, pin P)
+void GPIO_toggle_pin(volatile void* reg, pin P)
 {
 	if(GPIOF == (struct gpiof*)reg)
 	{

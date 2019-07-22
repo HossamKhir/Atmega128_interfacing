@@ -17,7 +17,7 @@
 #define SET_BITS(REG,MASK)	(REG |= (MASK))
 #define CLR_BITS(REG,MASK)	(REG &= ~(MASK))
 #define TOG_BITS(REG,MASK)	(REG ^= (MASK))
-#define GET_BITS(REG,MASk)	(REG & (MASK))
+#define GET_BITS(REG,MASK)	(REG & (MASK))
 
 #define SET_BYTE(REG)	(REG = 0xFF)
 #define CLR_BYTE(REG)	(REG = ~0xFF)

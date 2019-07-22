@@ -12,7 +12,6 @@ FLASH_IMAGE :=
 ELFS := 
 OBJS := 
 ASM_DEPS := 
-AVRDUDEDUMMY := 
 S_DEPS := 
 SIZEDUMMY := 
 S_UPPER_DEPS := 
@@ -22,5 +21,6 @@ C_DEPS :=
 # Every subdirectory with source files must be described here
 SUBDIRS := \
 APP \
+HAL/src \
 MCAL/src \
 

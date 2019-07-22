@@ -1,5 +1,5 @@
-MCAL/src/GPIO.d MCAL/src/GPIO.o: ../MCAL/src/GPIO.c \
- ../MCAL/src/../inc/GPIO.h ../MCAL/src/../inc/io_structure.h \
+MCAL/src/adc.d MCAL/src/adc.o: ../MCAL/src/adc.c ../MCAL/inc/adc.h \
+ ../MCAL/inc/io_structure.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\io.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\sfr_defs.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\inttypes.h \
@@ -11,12 +11,11 @@ MCAL/src/GPIO.d MCAL/src/GPIO.o: ../MCAL/src/GPIO.c \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\version.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\fuse.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\lock.h \
- ../MCAL/src/../inc/../../Utility/data_types.h \
- ../MCAL/src/../inc/../../Utility/bit_handle.h
+ ../MCAL/inc/../../Utility/data_types.h ../Utility/bit_handle.h
 
-../MCAL/src/../inc/GPIO.h:
+../MCAL/inc/adc.h:
 
-../MCAL/src/../inc/io_structure.h:
+../MCAL/inc/io_structure.h:
 
 c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\io.h:
 
@@ -40,6 +39,6 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-g
 
 c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1061\avr8-gnu-toolchain\avr\include\avr\lock.h:
 
-../MCAL/src/../inc/../../Utility/data_types.h:
+../MCAL/inc/../../Utility/data_types.h:
 
-../MCAL/src/../inc/../../Utility/bit_handle.h:
+../Utility/bit_handle.h:

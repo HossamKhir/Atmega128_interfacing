@@ -87,6 +87,9 @@
           <ListValues>
             <Value>../MCAL/inc</Value>
             <Value>../Utility</Value>
+            <Value>../MCAL/src</Value>
+            <Value>../HAL/inc</Value>
+            <Value>../HAL/src</Value>
           </ListValues>
         </avrgcc.compiler.directories.IncludePaths>
         <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
@@ -107,7 +110,40 @@
     <Compile Include="APP\main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="HAL\inc\keypad.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\inc\LCD.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\inc\ultrasonic.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\src\keypad.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\src\LCD.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\src\ultrasonic.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\inc\adc.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\inc\GPIO.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="MCAL\inc\io_structure.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\inc\usart.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\src\adc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\src\GPIO.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Utility\bit_handle.h">
@@ -116,9 +152,14 @@
     <Compile Include="Utility\data_types.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Utility\interrupt.h">
+      <SubType>compile</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="APP" />
+    <Folder Include="HAL\inc" />
+    <Folder Include="HAL\src" />
     <Folder Include="MCAL" />
     <Folder Include="HAL" />
     <Folder Include="MCAL\inc" />
